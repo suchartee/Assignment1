@@ -1,0 +1,4 @@
+https://www.dropbox.com/s/9frc9x5blloo7a4/CSUF_Ubuntu_Mate_16_04_01_amd64_20170122.ova?dl=0
+http://delaunay.ecs.fullerton.edu/~mshafae/srl/CSUF_Ubuntu_Mate_16_04_01_i386_20170122.ova
+https://www.dropbox.com/s/05k878x9t93k6wn/CSUF_Ubuntu_Mate_16_04_01_i386_20170122.ova?dl=0
+http://delaunay.ecs.fullerton.edu/~mshafae/srl/CSUF_Ubuntu_Mate_16_04_01_amd64_20170122.ova
