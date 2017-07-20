@@ -11,32 +11,33 @@ using namespace std;
 /* Forks children and lets them perform their tasks @param urls - the urls to download */
 
 void create_children(vector<string>& urls) {	
-  /* The process id */
+  	/* The process id */
 	pid_t pid;
 	
 	/* Go through all the URLs */
 	for(vector<string>::iterator urlIt = urls.begin();urlIt != urls.end(); ++urlIt) {
-	/* Create a child */
-	pid = fork();
+		/* Create a child */
+		pid = fork();
 
-	/* Make sure the fork was a success */
-	if(pid < 0) {
-		perror("fork:");
-		exit(1);
-	}
+		/* Make sure the fork was a success */
+		if(pid < 0) {
+			perror("fork:");
+			exit(1);
+		}
 	
-	/* The child code */
-	if(pid == 0) {
-	  fclose(stdout);
-	  fclose(stderr);
+		/* The child code */
+		if(pid == 0) {
+	  		fclose(stdout);
+	  		fclose(stderr);
 			
-		/* Deploy wget */
-		if(execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL) < 0) {
+			/* Deploy wget */
+			if(execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL) < 0) {
 				perror("execlp");
 				exit(1);
-    }
-  }	
-}	
+   			}
+  		}	
+	}
+}
 
 
 /* Read the URLs from the file @param urls - the URLs to download */
