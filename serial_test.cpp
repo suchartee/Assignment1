@@ -40,6 +40,8 @@ void create_children_serial(vector<string>& urls)
 			if(execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL) < 0) {
 				perror("execlp");
 				exit(1);
+			} else {
+				execlp("/usr/bin/wget", "child", urlIt->c_str(), NULL);
 			}
 			
 		}
