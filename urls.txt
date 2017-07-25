@@ -1,4 +1,5 @@
-http://ipv4.download.thinkbroadband.com/10mb.zip
-http://ipv4.download.thinkbroadband.com/5mb.zip
-http://ipv4.download.thinkbroadband.com/20mb.zip
-http://ipv4.download.thinkbroadband.com/50mb.zip
+http://ipv4.download.thinkbroadband.com/5MB.zip
+http://ipv4.download.thinkbroadband.com/10MB.zip
+http://ipv4.download.thinkbroadband.com/20MB.zip
+http://ipv4.download.thinkbroadband.com/1MB.zip
+http://ipv4.download.thinkbroadband.com/10MB.zip
