@@ -1,3 +1,15 @@
+/* 
+* ==============================================================================
+*     Authors:		Suchartee (Alice) Kitisopakul, Su Win Htet, Qiyuan Liu
+*     Date:   		25 July 2017
+*     File name:  	serial.cpp
+*     Description: 	This serial file downloader is a program used for 
+*       		downloading multiple files from the Internet one by one.   
+*       		The program uses fork() and execlp("wget") commands.
+* 			The program reads urls.txt containing url file download 
+*			links as a commandline, and perform the downloading tasks. 
+* ==============================================================================
+*/
 #include <unistd.h>
 
 #include <sys/types.h>
@@ -12,9 +24,13 @@
 
 #include <vector>
 
+
 using namespace std;
 
 
+
+/* Global variables for link counter */
+int link_counter = 0;
 
 /**
 
@@ -31,7 +47,7 @@ void create_children_serial(vector<string>& urls)
 	pid_t pid;
 
 
-	/* Go through all t Make sure the fork was a success URLs */
+	/* Make sure the fork was a success URLs */
 
 	for (vector<string>::iterator urlIt = urls.begin(); urlIt != urls.end(); ++urlIt) {
 
@@ -54,8 +70,9 @@ void create_children_serial(vector<string>& urls)
 
 			/* Deploy wget */
 
+			printf("Child is created with PID %d, from parent PID %d\n", getpid(), getppid());
 			/* Check if execlp run a success */
-			printf("Child is created\n");
+
 			if (execlp("/usr/bin/wget", "wget", urlIt->c_str(), NULL) < 0) {
 
 				perror("execlp");
@@ -65,10 +82,15 @@ void create_children_serial(vector<string>& urls)
 			}
 
 		}
+
 		else {
+
 			/* Parent waits until a child exits */
-			printf("Parent is waiting till a child exits\n");
 			wait(NULL);
+
+			++link_counter;
+			printf("File %d is complete!\n", link_counter);
+
 		}
 
 	}
@@ -116,11 +138,9 @@ void readUrls(vector<string>& urls) {
 		urlFile >> urlBuffer;
 
 
-		/* Are we at the end of the file */
+		/* Push each url into the vector */
 
-		if (!urlFile.eof())
-
-			urls.push_back(urlBuffer);
+		urls.push_back(urlBuffer);
 	}
 
 
@@ -144,10 +164,14 @@ int main() {
 	readUrls(urls);
 
 
+	printf("Getting urls\n");
+	printf("There are %d links in urls.txt\n", urls.size());
 	/* Create child processes */
 
 	create_children_serial(urls);
-	printf("All children exited\n");
+
+	/* Successfully downloading */
+	printf("Downloading is done\n");
 
 	return 0;
 
