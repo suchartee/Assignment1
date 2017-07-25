@@ -2,12 +2,13 @@
 * ==============================================================================
 *     Authors:		Suchartee (Alice) Kitisopakul, Su Win Htet, Qiyuan Liu
 *     Date:   		25 July 2017
-*     File name:  	serial.cpp
-*     Description: 	This serial file downloader is a program used for 
-*       		downloading multiple files from the Internet one by one.   
-*       		The program uses fork() and execlp("wget") commands.
-* 			The program reads urls.txt containing url file download 
-*			links as a commandline, and perform the downloading tasks. 
+*     File name:  	parallel.cpp
+*     Description: 	This parallel file downloader is a program used for 
+*       		downloading multiple files from the Internet all at the   
+*       		same time. The program uses fork() and execlp("wget")
+*      	 		commands. The program reads urls.txt containing url file 
+* 			download links as a commandline, and perform the downloading
+*			tasks.
 * ==============================================================================
 */
 #include <unistd.h>
@@ -29,19 +30,22 @@ using namespace std;
 
 
 
-/* Global variables for link counter */
-int link_counter = 0;
+/* Global variables for child and parent counters */
+int child_counter = 0;
+int parent_counter = 0;
 
-/**
+/*
 
 * Forks children and lets them perform their tasks
 
-* @param urls - the urls to download
+* @param urls - the URLs to download
 
 */
 
-void create_children_serial(vector<string>& urls)
+
+void create_children_parallel(vector<string>& urls)
 {
+
 	/* The process id */
 
 	pid_t pid;
@@ -51,9 +55,11 @@ void create_children_serial(vector<string>& urls)
 
 	for (vector<string>::iterator urlIt = urls.begin(); urlIt != urls.end(); ++urlIt) {
 
+		++child_counter;
 		/* Create a child */
 
 		pid = fork();
+
 
 		if (pid < 0) {
 
@@ -63,14 +69,13 @@ void create_children_serial(vector<string>& urls)
 
 		}
 
-
 		/* The child code */
 
-		else if (pid == 0) {
-
+		if (pid == 0) {
+	
 			/* Deploy wget */
 
-			printf("Child is created with PID %d, from parent PID %d\n", getpid(), getppid());
+			printf("\nChild is created with PID %d, from parent PID %d\n", getpid(), getppid());
 			/* Check if execlp run a success */
 
 			if (execlp("/usr/bin/wget", "wget", urlIt->c_str(), NULL) < 0) {
@@ -82,43 +87,32 @@ void create_children_serial(vector<string>& urls)
 			}
 
 		}
-
-		else {
-
-			/* Parent waits until a child exits */
-			wait(NULL);
-
-			++link_counter;
-			printf("File %d is complete!\n", link_counter);
-
-		}
-
-	}
+ 	}
 
 }
 
 
 
 
-/**
+/*
 
 * Read the URLs from the file
 
 * @param urls - the URLs to download
-
 */
 
 
 void readUrls(vector<string>& urls) {
 
 	/* Open the file */
-
 	ifstream urlFile("urls.txt");
+
 	/* The URL buffer */
+
 	string urlBuffer;
 
 
-	/* Make sure the file was opened */
+	/* Make sure the file can be opened */
 
 	if (!urlFile.is_open()) {
 
@@ -139,8 +133,8 @@ void readUrls(vector<string>& urls) {
 
 
 		/* Push each url into the vector */
-
 		urls.push_back(urlBuffer);
+
 	}
 
 
@@ -163,16 +157,22 @@ int main() {
 
 	readUrls(urls);
 
-
-	printf("Getting urls\n");
-	printf("There are %d links in urls.txt\n", urls.size());
+	printf("\nGetting urls\n");
+	printf("\nThere are %d links in urls.txt\n", urls.size());
 	/* Create child processes */
 
-	create_children_serial(urls);
-
+	create_children_parallel(urls);
+	/* The parent code */
+	/* Parent waits for all children to terminate n times */
+	while(child_counter > 0) { 
+		wait(NULL);
+		++parent_counter;
+        	printf("File %d is complete!\n", parent_counter); 
+        	--child_counter;
+    	}
 	/* Successfully downloading */
 	printf("Downloading is done\n");
-
-	return 0;
+	
+return 0;
 
 }
