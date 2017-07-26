@@ -7,7 +7,7 @@
 *
 * =======================================================================
 * Name: Suchartee (Alice) Kitisopakul, suchartee@csu.fullerton.edu
-* Name: Su Win Htet,
+* Name: Su Win Htet, suhtet@csu.fullerton.edu
 * Name: Qiyuan Liu
 * =======================================================================
 *
