@@ -16,7 +16,7 @@
 * Language used: C++
 *
 * =======================================================================
-* 
+* How to run the programs:
 * 1) Change directory in terminal to where all files are located
 * 2) To build shell program, enter command 'g++ shell.cpp -o shell.out' 
 *    To run shell program, enter command 'time ./shell.out'
