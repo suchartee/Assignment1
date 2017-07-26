@@ -1,9 +1,5 @@
 http://ipv4.download.thinkbroadband.com/10MB.zip
-http://ipv4.download.thinkbroadband.com/20MB.zip
 http://ipv4.download.thinkbroadband.com/5MB.zip
 http://ipv4.download.thinkbroadband.com/1MB.zip
-http://ipv4.download.thinkbroadband.com/50MB.zip
-http://ipv4.download.thinkbroadband.com/100MB.zip
-http://ipv4.download.thinkbroadband.com/30MB.zip
 http://delaunay.ecs.fullerton.edu/~mshafae/srl/TitanOpenGLKit_win.zip
 http://delaunay.ecs.fullerton.edu/~mshafae/srl/TitanOpenGLKit_osx.zip
