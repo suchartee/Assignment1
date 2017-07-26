@@ -78,7 +78,7 @@ void create_children_parallel(vector<string>& urls)
 			printf("\nChild is created with PID %d, from parent PID %d\n", getpid(), getppid());
 			/* Check if execlp run a success */
 
-			if (execlp("/usr/bin/wget", "wget", urlIt->c_str(), NULL) < 0) {
+			if (execlp("wget", "wget", urlIt->c_str(), NULL) < 0) {
 
 				perror("execlp");
 
@@ -128,12 +128,15 @@ void readUrls(vector<string>& urls) {
 	while (!urlFile.eof()) {
 
 		/* Read the buffer */
-
+		
 		urlFile >> urlBuffer;
 
-
 		/* Push each url into the vector */
-		urls.push_back(urlBuffer);
+		if(!urlFile.eof()) {
+		
+			urls.push_back(urlBuffer);
+		
+		}		
 
 	}
 
