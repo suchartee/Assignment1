@@ -8,7 +8,7 @@
 * =======================================================================
 * Name: Suchartee (Alice) Kitisopakul, suchartee@csu.fullerton.edu
 * Name: Su Win Htet,
-* Name: Qiyuan Liu
+* Name: Qiyuan Liu, qiyuan.liu@csu.fullerton.edu
 * =======================================================================
 *
 * Language used: C++
